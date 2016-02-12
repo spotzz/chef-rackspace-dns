@@ -20,10 +20,15 @@
 case node['platform']
 when 'ubuntu', 'debian'
   # Doing this because some Rackspace images can lag at bootstrap time
-  execute 'apt-get update' do
+#  execute 'apt-get update' do
+#      command 'apt-get update'
+#      action :nothing
+#  end.run_action(:run)
+  e = execute 'apt-get update' do
       command 'apt-get update'
       action :nothing
-  end.run_action(:run)
+  end
+  e.run_action(:run)
 
   package( 'libxslt-dev' ).run_action( :install )
   package( 'libxml2-dev' ).run_action( :install )
